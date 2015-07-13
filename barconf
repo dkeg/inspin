@@ -7,10 +7,6 @@
   bar_h=28
   bar2_h=36
 
-getw() {
-  length=$(wc -L <<< "$1";)
-  barwidth=$length
-}
 statusbar() {
   bar_w=1100
   bar_h=$bar_h
