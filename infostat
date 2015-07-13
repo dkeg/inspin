@@ -6,22 +6,13 @@
 
 ## glyphs
   glymem=""
-  #glyvol=""
   glyvol=""
   glymute=""
-  #glynote=""
-  #glynote=""
   glynote=""
-  #glynote=""
   glylistn=""
-  #glylistn=""
   glycrnt=""
-  #glycrnt=""
   gnc=""
-  #gnc2=""
-  #gnc=""
   glychrg=""
-  #glybatt=""
   glybatt=""
   glybattlower=""
   glybattlow=""
@@ -31,7 +22,6 @@
   glybattfull=""
   glybattalert=""
   glybattpanic=""
-  #glyalert=""
   glyclock=""
   glycal=""
   glywifi=""
@@ -112,8 +102,10 @@ status() {
         vol=$(amixer get Master|awk 'NR==5 {print $4}'|cut -d '%' -f1 | cut -d '[' -f2) #sed -e 's/[//g') 
         mut=$(amixer get Master | awk 'NR==5 {print $6}')
         head=$(cat /proc/asound/card0/codec#0 | awk 'NR==143 {print $2}')
+        # check if muted 
         if [ $mut == "[off]" ] ;then
             echo "%{F$MAG}$glymute$SEP'M'$SEP"
+        # check if headphones plugged in 
         elif [ $head == "0x00:" ] ;then
             echo "%{F$MAG}$glylistn$SEP$vol$SEP"
         else
@@ -122,15 +114,12 @@ status() {
 	}
     windowname() {
         name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3,$4,$5,$6,$7}')
-        #name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3; print $4; print $5; print $6; print $7}')
         if [ -z $name ]; then
             name=%{F$BBLK}"none " 
         else
             name=%{F$WHT}$name%{F-}
         fi
-      # echo $title 
         echo %{+u}$SEP$name%{-u}
-        #echo %{F$WHT}%{+u}$SEP$name$SEP%{-u}
     }
     music() {
         ARTIST=$( cmus-remote -Q 2>/dev/null | grep "tag artist " | cut -d " " -f 3- )
@@ -140,31 +129,16 @@ status() {
         if [ -z "$ARTIST" ] ;then
             ek="%{U$BBLK}%{+u}$glynote$SEP4---%{-u}"
         else
-            #ek="$ARTIST - $TITLE"
             ek="%{U$RED}%{+u}$glylistn$SEP$ARTIST%{-u}"
             case $STATE in
                 "paused")   gly="" ;;
                 "playing")  gly="" ;;
             esac
         fi
-        #echo %{F$WHT}$SEP2$ek$SEP$gly$SEP
-        echo %{F$WHT}$SEP2$ek$SE%{U$RED}%{+u}$gly%{-u}
-        #echo %{U$RED}%{+u}%{F$WHT}$SEP$ek$SEP$gly$SEP%{-u}
+        echo %{F$WHT}$SEP2$ek$SEP%{U$RED}%{+u}$gly%{-u}
     }
     wireless() {
         wifi=$(awk 'NR==3 {printf("%2.2d\n", ($3/70)*100)}' /proc/net/wireless)
-       #     case $wifi in
-       #         [1-6]*)
-       #             strength=%{F$WHT}$glywifi%{F$RED}$SEP2$wifi ;;
-       #         [7-8]*)
-       #             strength=%{F$WHT}$glywifi%{F$YLW}$SEP2$wifi ;;
-       #         [9-10]*)
-       #             strength=%{F$WHT}$glywifi%{F$GRN}$SEP2$wifi ;;
-       #         #100)
-       #         #    strength=%{F$WHT}$glywifi%{F$GRN}$SEP2$wifi ;;
-       #     esac
-       # echo $strength 
-
           if [ $wifi -lt 70 ]; then
               strength=%{F$WHT}$glywifi%{F$RED}$SEP2$wifi
             elif [ $wifi -ge 70 ] && [ $wifi -lt 90 ]; then
