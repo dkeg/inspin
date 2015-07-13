@@ -1,0 +1,108 @@
+#! /bin/bash
+
+## control some bar parameters in one place
+
+
+## globals
+  bar_h=28
+  bar2_h=36
+
+getw() {
+  length=$(wc -L <<< "$1";)
+  barwidth=$length
+}
+statusbar() {
+  bar_w=1100
+  bar_h=$bar_h
+  bar_x=140
+  bar_y=4
+
+  statusbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+smallstatus() {
+  bar_w=500
+  bar_h=$bar_h
+  bar_x=30
+  bar_y=4
+
+  smallstatus_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+notifybar() {
+  bar_w=770
+  bar_h=$bar_h
+  bar_x=297
+  bar_y=4
+
+  notifybar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+batbar() {
+  bar_w=190
+  bar_h=$bar2_h
+  bar_x=1160
+  bar_y=28
+
+  batbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+musicbar() {
+  bar_w=375
+  #bar_w=$length
+  bar_h=$bar2_h
+  bar_x=975
+  bar_y=58
+
+  musicbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+chatbar() {
+  bar_w=250
+  bar_h=$bar2_h
+  bar_x=1100
+  bar_y=84
+
+  chatbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+}
+## thanks hamsterslayer
+  xolor(){
+    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )";
+  }
+
+  BG="#FF$(xolor background)"
+  FG="#FF$(xolor foreground)"
+  BLK="#FF$(xolor color0)"
+  BBLK="#FF$(xolor color8)"
+  RED="#FF$(xolor color1)"
+  GRN="#FF$(xolor color2)"
+  YLW="#FF$(xolor color3)"
+  BLU="#FF$(xolor color4)"
+  MAG="#FF$(xolor color5)"
+  CYN="#FF$(xolor color6)"
+  WHT="#FF$(xolor color7)"
+  BRED="#FF$(xolor color9)"
+  BGRN="#FF$(xolor color10)"
+  BYLW="#FF$(xolor color11)"
+  BBLU="#FF$(xolor color12)"
+  BMAG="#FF$(xolor color13)"
+  BCYN="#FF$(xolor color14)"
+  BWHT="#FF$(xolor color15)"
+  
+  xonts() {
+    fnt=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f1)
+    ico=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f2)
+    fnt2=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f3)
+    ico2=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f4)
+
+    fnts=($fnt $ico $fnt2 $ico2)
+  
+  font=${fnts[0]}
+  glyph=${fnts[1]}
+  font2=${fnts[2]}
+  glyph2=${fnts[3]}
+}
+
+  getw 
+  statusbar
+  smallstatus
+  notifybar
+  batbar
+  musicbar
+  chatbar
+  xonts

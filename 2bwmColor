@@ -1,0 +1,74 @@
+#! /bin/bash
+
+## dkeg 2015
+## 2bwmColor
+## Whenever you change your xcolor run this and your wm (2bwm) borders will keep with you chosen color scheme!
+## Thanks to Hamsterslayer for the xcolor scraper piece
+## requires xdotool
+
+# merge in case we forgot
+xrdb merge ~/.Xresources
+
+# get current xcolors
+  xolor(){
+    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )";
+  }
+
+  BG="#$(xolor background)"
+  FG="#$(xolor foreground)"
+  BLK="#$(xolor color0)"
+  BBLK="#$(xolor color8)"
+  RED="#$(xolor color1)"
+  GRN="#$(xolor color2)"
+  YLW="#$(xolor color3)"
+  BLU="#$(xolor color4)"
+  MAG="#$(xolor color5)"
+  CYN="#$(xolor color6)"
+  WHT="#$(xolor color7)"
+
+# wm border color options
+  #foc=$BG
+  foc=$BLK
+  #unfoc=$BG
+  unfoc=$BLK
+  fixc=$RED
+  unkil=$YLW
+  fixunk=$MAG
+  #outr=$BG
+  outr=$BLK
+  emp=$BLK
+  #emp=$BG
+
+# set paths 
+  dir=$HOME/git/2bwm
+  file=$HOME/git/2bwm/config.h
+
+# take the colors from the config.h and place into an array  
+  wmcol=$(cat $file|grep "*colors"|awk '{print $6}'|cut -d '}' -f1|awk '{gsub(/"/," ");print $2,$4,$6,$8,$10,$12,$14}')
+  arr=($wmcol)
+
+# action adjust to your liking
+   sed -i "s/${arr[0]}/$unfoc/g;
+           s/${arr[1]}/$unfoc/g;
+           s/${arr[2]}/$fixc/g;
+           s/${arr[3]}/$unkil/g;
+           s/${arr[4]}/$fixunk/g;
+           s/${arr[5]}/$unfoc/g;
+           s/${arr[6]}/$emp/g" $file 
+# test
+#  echo ${arr[*]}
+  
+# compile
+  cd $dir && make && sudo make install && cd
+
+# reload
+  xdotool key "super+ctrl+r"
+
+# change the background
+  hsetroot -solid "$BBLK" &
+
+# spawn a new term
+  urxvt &
+
+# update bar colors
+  pkill bar && infostat &
