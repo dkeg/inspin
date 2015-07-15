@@ -114,6 +114,7 @@ status() {
         head=$(cat /proc/asound/card0/codec#0 | awk 'NR==143 {print $2}')
         if [ $mut == "[off]" ] ;then
             echo "%{F$MAG}$glymute$SEP'M'$SEP"
+        # check for headphones 
         elif [ $head == "0x00:" ] ;then
             echo "%{F$MAG}$glylistn$SEP$vol$SEP"
         else
