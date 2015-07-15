@@ -6,13 +6,22 @@
 
 ## glyphs
   glymem=""
+  #glyvol=""
   glyvol=""
   glymute=""
+  #glynote=""
+  #glynote=""
   glynote=""
+  #glynote=""
   glylistn=""
+  #glylistn=""
   glycrnt=""
+  #glycrnt=""
   gnc=""
+  #gnc2=""
+  #gnc=""
   glychrg=""
+  #glybatt=""
   glybatt=""
   glybattlower=""
   glybattlow=""
@@ -22,6 +31,7 @@
   glybattfull=""
   glybattalert=""
   glybattpanic=""
+  #glyalert=""
   glyclock=""
   glycal=""
   glywifi=""
@@ -102,10 +112,8 @@ status() {
         vol=$(amixer get Master|awk 'NR==5 {print $4}'|cut -d '%' -f1 | cut -d '[' -f2) #sed -e 's/[//g') 
         mut=$(amixer get Master | awk 'NR==5 {print $6}')
         head=$(cat /proc/asound/card0/codec#0 | awk 'NR==143 {print $2}')
-        # check if muted 
         if [ $mut == "[off]" ] ;then
             echo "%{F$MAG}$glymute$SEP'M'$SEP"
-        # check if headphones plugged in 
         elif [ $head == "0x00:" ] ;then
             echo "%{F$MAG}$glylistn$SEP$vol$SEP"
         else
@@ -114,12 +122,15 @@ status() {
 	}
     windowname() {
         name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3,$4,$5,$6,$7}')
+        #name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3; print $4; print $5; print $6; print $7}')
         if [ -z $name ]; then
             name=%{F$BBLK}"none " 
         else
             name=%{F$WHT}$name%{F-}
         fi
+      # echo $title 
         echo %{+u}$SEP$name%{-u}
+        #echo %{F$WHT}%{+u}$SEP$name$SEP%{-u}
     }
     music() {
         ARTIST=$( cmus-remote -Q 2>/dev/null | grep "tag artist " | cut -d " " -f 3- )
@@ -129,13 +140,15 @@ status() {
         if [ -z "$ARTIST" ] ;then
             ek="%{U$BBLK}%{+u}$glynote$SEP4---%{-u}"
         else
-            ek="%{U$RED}%{+u}$glylistn$SEP$ARTIST%{-u}"
+            # Only include Title depending on bar width
+            ek="%{F$CYN}$glynote%{F-}$SEP%{U$RED}$SEP%{+u}$ARTIST - $TITLE%{-u}"
+            #ek="%{U$RED}%{+u}$glylistn$SEP$ARTIST - $TITLE%{-u}"
             case $STATE in
-                "paused")   gly="" ;;
-                "playing")  gly="" ;;
+                "paused")   gly="$SEP%{F$YLW}%{F-}" ;;
+                "playing")  gly="$SEP%{F$GRN}%{F-}" ;;
             esac
         fi
-        echo %{F$WHT}$SEP2$ek$SEP%{U$RED}%{+u}$gly%{-u}
+        echo %{F$WHT}$SEP4$ek$SEP$gly$SEP
     }
     wireless() {
         wifi=$(awk 'NR==3 {printf("%2.2d\n", ($3/70)*100)}' /proc/net/wireless)
@@ -148,8 +161,7 @@ status() {
             fi
         echo $strength 
     }
-
-    echo "$SEP6$(memory)$SEP2$(vol)$SEP2$(batterystate)$SEP$(bat)%{r}$(music)$SEP8$(wireless)$SEP4$(clockdate)$SEP6"
+echo "$SEP6$(memory)$SEP2$(vol)$SEP2$(batterystate)$SEP$(bat)%{r}$(music)$SEP8$(wireless)$SEP4$(clockdate)$SEP6"
 }
 ## populate and display
 while true
