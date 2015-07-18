@@ -27,17 +27,12 @@ xrdb merge ~/.Xresources
   WHT="#$(xolor color7)"
 
 # wm border color options
-  #foc=$BG
   foc=$FG
-  #foc=$BLK
-  #unfoc=$BG
   unfoc=$BLK
   fixc=$RED
   unkil=$YLW
   fixunk=$MAG
-  #outr=$BG
   outr=$BLK
-  #emp=$BLK
   emp=$BG
 
 # set paths 
