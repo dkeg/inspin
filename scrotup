@@ -9,7 +9,7 @@
 ## dependencies are 
   # bar for popups OR use dunst and change notify accordingly
   # imgur upload script (https://code.google.com/p/imgur-cli/)
-  # toilet (in the repos)
+  # figlet or toilet (in the repos)
   # hit 'q' to exit the scrot preview and continue
 
 ## globals
@@ -19,7 +19,8 @@
   params="-R .01 --zoom 75 --auto-zoom"
   sendit="imgur upload $1 -t $1"
   notify="popbatt %{c}"
-  fancy="toilet --gay"
+  fancy="figlet"
+  #fancy="toilet --gay"
 
 ## clear the screen to look nice
   function clr() {
@@ -50,10 +51,10 @@
     feh $geometry $params $1 
     $(clr) 
     echo -e "Upload to Imgur?
-    a. Upload and Save
-    b. Upload; don't Save 
-    c. Save only
-    d. Delete and Quit"
+      a. Upload and Save
+      b. Upload; don't Save 
+      c. Save only
+      d. Delete and Quit"
     read action
       if [ $action == "a" ] ;then
         saveit $1

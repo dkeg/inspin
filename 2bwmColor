@@ -27,12 +27,12 @@ xrdb merge ~/.Xresources
   WHT="#$(xolor color7)"
 
 # wm border color options
-  foc=$FG
+  foc=$WHT
   unfoc=$BLK
   fixc=$RED
-  unkil=$YLW
+  unkil=$CYN
   fixunk=$MAG
-  outr=$BLK
+  outr=$BG
   emp=$BG
 
 # set paths 
@@ -43,7 +43,7 @@ xrdb merge ~/.Xresources
   wmcol=$(cat $file|grep "*colors"|awk '{print $6}'|cut -d '}' -f1|awk '{gsub(/"/," ");print $2,$4,$6,$8,$10,$12,$14}')
   arr=($wmcol)
 
-# action adjust to your liking
+# action; set the new colors
    sed -i "s/${arr[0]}/"$foc"/;
            s/${arr[1]}/"$unfoc"/;
            s/${arr[2]}/"$fixc"/;
@@ -61,10 +61,10 @@ xrdb merge ~/.Xresources
   xdotool key "super+ctrl+r"
 
 # change the background
-#  hsetroot -solid "$BLK" &
+# hsetroot -solid "$BBLK" &
 
 # spawn a new term
-#  urxvt &
+# urxvt &
 
 # update bar colors
   pkill bar && infostat &

@@ -6,22 +6,14 @@
 
 ## glyphs
   glymem=""
-  #glyvol=""
   glyvol=""
   glymute=""
-  #glynote=""
-  #glynote=""
   glynote=""
-  #glynote=""
   glylistn=""
-  #glylistn=""
-  glycrnt=""
-  #glycrnt=""
-  gnc=""
-  #gnc2=""
-  #gnc=""
+  glypause=""
+  glyplay=""
+  glystop=""
   glychrg=""
-  #glybatt=""
   glybatt=""
   glybattlower=""
   glybattlow=""
@@ -35,6 +27,8 @@
   glyclock=""
   glycal=""
   glywifi=""
+  glywifi2=""
+  glywifi3=""
 ## extras
   SEP=" "
   SEP2="  "
@@ -108,22 +102,21 @@ status() {
       herbstclient list_monitors | awk '{gsub(/"/," ");print $5}'
     }
 	vol() {
-        #vol=$(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/' | sed -e 's/%//g')
         vol=$(amixer get Master|awk 'NR==5 {print $4}'|cut -d '%' -f1 | cut -d '[' -f2) #sed -e 's/[//g') 
         mut=$(amixer get Master | awk 'NR==5 {print $6}')
         head=$(cat /proc/asound/card0/codec#0 | awk 'NR==143 {print $2}')
-        if [ $mut == "[off]" ] ;then
-            echo "%{F$MAG}$glymute$SEP'M'$SEP"
-        # check for headphones 
-        elif [ $head == "0x00:" ] ;then
-            echo "%{F$MAG}$glylistn$SEP$vol$SEP"
-        else
-            echo "%{F$CYN}$glyvol$SEP$vol$SEP"
-        fi
+          # check if muted 
+          if [ $mut == "[off]" ] ;then
+              echo "%{F$MAG}$glymute$SEP"M"$SEP"
+          # check for headphones 
+          elif [ $head == "0x00:" ] ;then
+              echo "%{F$MAG}$glylistn$SEP$vol$SEP"
+          else
+              echo "%{F$CYN}$glyvol$SEP$vol$SEP"
+          fi
 	}
     windowname() {
         name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3,$4,$5,$6,$7}')
-        #name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME | awk '{gsub(/"/," ");print $3; print $4; print $5; print $6; print $7}')
         if [ -z $name ]; then
             name=%{F$BBLK}"none " 
         else
@@ -131,7 +124,6 @@ status() {
         fi
       # echo $title 
         echo %{+u}$SEP$name%{-u}
-        #echo %{F$WHT}%{+u}$SEP$name$SEP%{-u}
     }
     music() {
         ARTIST=$( cmus-remote -Q 2>/dev/null | grep "tag artist " | cut -d " " -f 3- )
@@ -141,23 +133,22 @@ status() {
         if [ -z "$ARTIST" ] ;then
             ek="%{U$BBLK}%{+u}$glynote$SEP4---%{-u}"
         else
-            # Only include Title depending on bar width
-            ek="%{F$CYN}$glynote%{F-}$SEP%{U$RED}$SEP%{+u}$ARTIST - $TITLE%{-u}"
-            #ek="%{U$RED}%{+u}$glylistn$SEP$ARTIST - $TITLE%{-u}"
             case $STATE in
-                "paused")   gly="$SEP%{F$YLW}%{F-}" ;;
-                "playing")  gly="$SEP%{F$GRN}%{F-}" ;;
+                "paused")  ek="%{F$YLW}%{F-}$SEP%{U$YLW}$SEP%{+u}$ARTIST%{-u}$SEP%{F$YLW}$SEP$glypause%{F-}" ;;
+                "playing") ek="%{F$GRN}%{F-}$SEP%{U$GRN}$SEP%{+u}$ARTIST%{-u}$SEP%{F$GRN}$SEP$glyplay%{F-}" ;;
+                "stopped") ek="%{F$RED}%{F-}$SEP%{U$RED}$SEP%{+u}$ARTIST%{-u}$SEP%{F$RED}$SEP$glystop%{F-}" ;;
             esac
         fi
         echo %{F$WHT}$SEP4$ek$SEP$gly$SEP
     }
     wireless() {
+        # todo; check if exists 
         wifi=$(awk 'NR==3 {printf("%2.2d\n", ($3/70)*100)}' /proc/net/wireless)
-          if [ $wifi -lt 70 ]; then
-              strength=%{F$WHT}$glywifi%{F$RED}$SEP2$wifi
+            if [ $wifi -lt 70 ]; then
+              strength=%{F$WHT}$glywifi3%{F$RED}$SEP2$wifi
             elif [ $wifi -ge 70 ] && [ $wifi -lt 90 ]; then
-              strength=%{F$WHT}$glywifi%{F$YLW}$SEP2$wifi
-            else
+              strength=%{F$WHT}$glywifi2%{F$YLW}$SEP2$wifi
+            else  
               strength=%{F$WHT}$glywifi%{F$GRN}$SEP2$wifi
             fi
         echo $strength 
