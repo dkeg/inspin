@@ -1,0 +1,23 @@
+#! /bin/bash
+
+## wallview
+## dkeg 2015
+
+## A cool view of your current wall
+## dependant on feh
+
+# set your geometry as desired
+# adjust $display as needed based; this is based on my setup
+# for example; my config is ... hsetroot -fill /data/walls/wall.jpg &
+# the -R .01 is redraw. Without it, the preview comes up blank at first
+
+# set the variables
+geom='-g 250x175+550+293'
+params="-R .01 --zoom fill"
+display=$(cat ~/.xinitrc|grep hsetroot|cut -d ' ' -f3|awk '{sub(/&/,"");print}')
+
+# test
+# echo $display
+
+# show the preview
+feh $geom $params $display
