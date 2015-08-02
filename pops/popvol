@@ -1,0 +1,26 @@
+#!/bin/bash
+# dkeg 2015
+# inspiration from z3bra
+# notification of volume events 
+# sourced from .xbindkeysrc and volume
+
+. $HOME/bin/barconf
+
+duration=3
+
+# colors
+bar_bg=$YLW
+bar_fg=$BBLK
+#bar_bg=#ff${xcol[6]}
+#bar_fg=#ff${xcol[3]}
+
+# font
+font=${fnts[0]}
+font2=${fnts[1]}
+font3=${fnts[3]} 
+
+# put it together
+baropt='-b -g '${volbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${font3}''
+
+# create it 
+(echo "$@ "; sleep ${duration}) | bar ${baropt} 

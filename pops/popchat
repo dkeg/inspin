@@ -1,0 +1,29 @@
+#!/bin/bash
+# dkeg 2015
+# inspiration from z3bra
+# notification used with irssi and weechat
+# source from notify.pl and notify.rb
+# both altered to use this over notify-send 
+
+. $HOME/bin/barconf
+
+duration=6
+
+# extra
+gly=""
+
+# colors
+bar_bg=$MAG
+bar_fg=$WHT
+
+# font
+font=${fnts[0]}
+font2=${fnts[2]}
+ico=${fnts[1]}
+ico2=${fnts[3]}
+
+# put it together 
+baropt='-g '${chatbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${ico},${ico2}''
+
+# create it
+(echo " $@"; sleep ${duration}) | bar ${baropt}

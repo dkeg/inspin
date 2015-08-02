@@ -1,0 +1,24 @@
+#!/bin/bash
+# dkeg 2015
+# inspiration from z3bra
+# give me battery notifications 
+# sourced from battbar 
+
+. $HOME/bin/barconf
+
+duration=6
+
+# colors
+bar_bg=$MAG
+bar_fg=$WHT
+
+# font
+font=${fnts[0]}
+font2=${fnts[1]}
+font3=${fnts[3]}
+
+# put it together 
+baropt='-g '${batbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${font3}''
+
+# create it 
+(echo " $@"; sleep ${duration}) | bar ${baropt}
