@@ -7,20 +7,13 @@
 
 . $HOME/bin/barconf
 
-duration=2
+duration=3
 
-# colors
-bar_bg=$YLW
-bar_fg=$BBLK
-
-# font
-font=${fnts[0]}
-font2=${fnts[2]}
-ico=${fnts[1]}
-ico2=${fnts[3]}
+# colors and fonts
+# sourced from  barconf
 
 # put it together 
-baropt='-g '${fullbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${ico},${ico2}''
+baropt='-g '${fullbar_g}' -d -F '${gbarfg}' -B '${gbarbg}' -f '${fnts[0]}''
 
 # create it
 (echo " $@"; sleep ${duration}) | bar ${baropt}

@@ -9,21 +9,11 @@
 
 duration=6
 
-# extra
-gly=""
-
-# colors
-bar_bg=$MAG
-bar_fg=$WHT
-
-# font
-font=${fnts[0]}
-font2=${fnts[2]}
-ico=${fnts[1]}
-ico2=${fnts[3]}
+# colors and fonts
+# source from barconf
 
 # put it together 
-baropt='-g '${chatbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${ico},${ico2}''
+baropt='-b -g '${chatbar_g}' -d -F '${gbarfg}' -B '${gbarbg}' -f '${fnts[0]},${fnts[1]}''
 
 # create it
 (echo " $@"; sleep ${duration}) | bar ${baropt}

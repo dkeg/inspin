@@ -8,17 +8,11 @@
 
 duration=3
 
-# colors
-bar_bg=$YLW
-bar_fg=$BBLK
-
-# font
-font=${fnts[0]}
-font2=${fnts[1]}
-font3=${fnts[3]} 
+# colors and fonts
+# sourced from barconf
 
 # put it together
-baropt='-b -g '${musbar_g}' -d -F '${bar_fg}' -B '${bar_bg}' -f '${font},${font2},${font3}''
+baropt='-b -g '${musbar_g}' -d -F '${gbarfg}' -B '${gbarbg}' -f '${fnts[0]},${fnts[1]}''
 
 # Create it 
 (echo "$@ "; sleep ${duration}) | bar ${baropt} 
