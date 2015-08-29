@@ -48,7 +48,7 @@
     exit 1
   else
     $scrotit $1
-    feh $geometry $params $1 
+    #feh $geometry $params $1 
     $(clr) 
     echo -e "Upload to Imgur?
       a. Upload and Save

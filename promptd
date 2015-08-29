@@ -1,0 +1,35 @@
+#!/bin/bash
+## promptd
+## battery status driven prompt 
+## dkeg 2015
+## in your .bashrc 
+## PS1="\[\$(/path/promptd)\]$ \[\e[0m\]"
+
+# colors (my choices, change as desire)
+  R=$(tput setaf 1)
+  Y=$(tput setaf 3)
+  G=$(tput setaf 2)
+  C=$(tput setaf 6) # \e[36m
+  N=$(tput sgr0)
+
+# battery info
+  BATT=/sys/class/power_supply/BAT0
+  #test -e $BATT || PS1='%'
+  CAPACITY=$(cat $BATT/capacity)
+  STATE=$(cat $BATT/status)
+
+# filter and color 
+    if [ ${STATE} = "Discharging" ] ; then
+      case ${CAPACITY} in
+        [0-9])  PS1=$R ;;
+        [1-3]*) PS1=$R ;;
+        [4-6]*) PS1=$Y ;;
+        [7-9]*) PS1=$G ;;
+        [100])  PS1=$G ;;
+      esac
+    else 
+      PS1=$C
+    fi
+
+# display
+  echo $PS1 
