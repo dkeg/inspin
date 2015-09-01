@@ -47,10 +47,6 @@
   battbbg=$RED
   battbfg=$WHT
 
-#getw() {
-#  length=$(wc -L <<< "$1";)
-#  barwidth=$length
-#}
 statusbar() {
   bar_w=1100
   bar_h=$bar_h
@@ -63,7 +59,6 @@ smallstatus() {
   bar_w=500
   bar_h=$bar2_h
   bar_x=750
-  #bar_x=50
   bar_y=8
 
   smallstatus_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
@@ -94,14 +89,12 @@ musicbar() {
 }
 fullbar() {
   bar_w=866
-  #bar_w=1266
   bar_h=$bar3_h
   bar_x=250
   #bar_x=50
   bar_y=6
   
   fullbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
-  #fullbar_g="-g ${bar_w}x${bar_h}+${bar_x}+${bar_y} -d -B ${barbg} -F ${barfg} -f '${font},${glyph}'"
 }
 
 chatbar() {
@@ -118,7 +111,6 @@ volbar() {
   bar_h=$bar3_h
   bar_x=1125
   bar_y=20
-  #bar_y=20
   
   g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
   volbar_g=$g
