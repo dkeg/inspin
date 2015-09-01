@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 ## control some bar parameters in one place
 
@@ -6,7 +6,7 @@
   alpha="#CC"
   
   xolor(){
-    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )";
+    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )"
   }
 
   BG="$alpha$(xolor background)"
@@ -30,10 +30,10 @@
 
 ## grab the fonts from .Xresources
   xonts() {
-    fnt=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f1)
-    ico=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f2)
-    fnt2=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f3)
-    ico2=$(xrdb -query | grep font | awk '{$1="";print}'|cut -d ',' -f4)
+    fnt=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f1)
+    ico=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f2)
+    fnt2=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f3)
+    ico2=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f4)
 
     fnts=($fnt $ico $fnt2 $ico2)
 }
@@ -45,20 +45,25 @@
   gbarbg=$YLW
   gbarfg=$BBLK
   battbbg=$RED
-  battbfg=$BBLK
+  battbfg=$WHT
 
+#getw() {
+#  length=$(wc -L <<< "$1";)
+#  barwidth=$length
+#}
 statusbar() {
   bar_w=1100
   bar_h=$bar_h
   bar_x=140
   bar_y=4
 
-  statusbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+  statusbar_g="-b -g ${bar_w}x${bar_h}+${bar_x}+${bar_y} -d -B ${bar_bg} -F ${bar_fg} -f '${font},${font2},${font3}'"
 }
 smallstatus() {
   bar_w=500
   bar_h=$bar2_h
   bar_x=750
+  #bar_x=50
   bar_y=8
 
   smallstatus_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
@@ -72,29 +77,31 @@ notifybar() {
   notifybar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
 }
 batbar() {
-  bar_w=200
-  bar_h=$bar2_h
-  bar_x=1100
-  bar_y=21
+  bar_w=185
+  bar_h=$bar3_h
+  bar_x=1135
+  bar_y=6
 
   batbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
 }
 musicbar() {
   bar_w=375
-  #bar_w=$length
   bar_h=$bar2_h
   bar_x=975
   bar_y=58
 
-  musicbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+  musicbar_g="-g ${bar_w}x${bar_h}+${bar_x}+${bar_y} -d -B ${bar_bg} -F ${bar_fg} -f '${font},${font2},${font3}'"
 }
 fullbar() {
-  bar_w=1266
+  bar_w=866
+  #bar_w=1266
   bar_h=$bar3_h
-  bar_x=50
-  bar_y=3
+  bar_x=250
+  #bar_x=50
+  bar_y=6
   
   fullbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+  #fullbar_g="-g ${bar_w}x${bar_h}+${bar_x}+${bar_y} -d -B ${barbg} -F ${barfg} -f '${font},${glyph}'"
 }
 
 chatbar() {
@@ -102,6 +109,7 @@ chatbar() {
   bar_h=$bar3_h
   bar_x=1100
   bar_y=20
+  #bar_y=92
 
   chatbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
 }
@@ -110,11 +118,13 @@ volbar() {
   bar_h=$bar3_h
   bar_x=1125
   bar_y=20
-
-  volbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+  #bar_y=20
+  
+  g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
+  volbar_g=$g
 }
 musbar() {
-  bar_w=275
+  bar_w=225
   bar_h=$bar3_h
   bar_x=825
   bar_y=20
