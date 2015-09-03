@@ -14,3 +14,4 @@ Find me on linuxbbq
   * popvol - volume display on change
   * popchat - replaced notify-send in irssi/weechat notifcations
   * popmusic - cmus song change display notification
+- colr - xrdb color and font scraper
