@@ -7,6 +7,7 @@ Find me on linuxbbq
 - wallview - takes current wall(s) from .xinitrc and displays nicely
 - infostat - status bar using lemonbar
 - 2bwmColor - update 2bwm border color based on current xcolors. Change border colors, reload with xdotool
+- colr - xrdb color and font scraper
 - pops - variety of popup notification using bar
   * barconf - central command for all popup notification geometry's and color
   * battbar - battery notifications when below [n] level
@@ -14,4 +15,3 @@ Find me on linuxbbq
   * popvol - volume display on change
   * popchat - replaced notify-send in irssi/weechat notifcations
   * popmusic - cmus song change display notification
-- colr - xrdb color and font scraper
