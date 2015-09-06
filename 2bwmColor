@@ -3,7 +3,6 @@
 ## dkeg 2015
 ## 2bwmColor
 ## Whenever you change your xcolor run this and your wm (2bwm) borders will keep with you chosen color scheme!
-## Thanks to Hamsterslayer for the xcolor scraper piece
 ## requires xdotool
 
 . $HOME/bin/colr
