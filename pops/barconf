@@ -1,42 +1,22 @@
 #!/bin/bash
 
 ## control some bar parameters in one place
+. $HOME/bin/colr
 
   #alpha="#A5"
   alpha="#CC"
   
-  xolor(){
-    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )"
-  }
-
-  BG="$alpha$(xolor background)"
-  FG="$alpha$(xolor foreground)"
-  BLK="$alpha$(xolor color0)"
-  BBLK="$alpha$(xolor color8)"
-  RED="$alpha$(xolor color1)"
-  GRN="$alpha$(xolor color2)"
-  YLW="$alpha$(xolor color3)"
-  BLU="$alpha$(xolor color4)"
-  MAG="$alpha$(xolor color5)"
-  CYN="$alpha$(xolor color6)"
-  WHT="$alpha$(xolor color7)"
-  BRED="$alpha$(xolor color9)"
-  BGRN="$alpha$(xolor color10)"
-  BYLW="$alpha$(xolor color11)"
-  BBLU="$alpha$(xolor color12)"
-  BMAG="$alpha$(xolor color13)"
-  BCYN="$alpha$(xolor color14)"
-  BWHT="$alpha$(xolor color15)"
-
-## grab the fonts from .Xresources
-  xonts() {
-    fnt=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f1)
-    ico=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f2)
-    fnt2=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f3)
-    ico2=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f4)
-
-    fnts=($fnt $ico $fnt2 $ico2)
-}
+  BG="$alpha$bg"
+  FG="$alpha$fg"
+  BLK="$alpha$blk"
+  BBLK="$alpha$bblk"
+  RED="$alpha$red"
+  GRN="$alpha$grn"
+  YLW="$alpha$ylw"
+  BLU="$alpha$blu"
+  MAG="$alpha$mag"
+  CYN="$alpha$cyn"
+  WHT="$alpha$wht"
 
 ## globals
   bar_h=28
@@ -91,7 +71,6 @@ fullbar() {
   bar_w=866
   bar_h=$bar3_h
   bar_x=250
-  #bar_x=50
   bar_y=6
   
   fullbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
@@ -102,7 +81,6 @@ chatbar() {
   bar_h=$bar3_h
   bar_x=1100
   bar_y=20
-  #bar_y=92
 
   chatbar_g="${bar_w}x${bar_h}+${bar_x}+${bar_y}"
 }
@@ -134,4 +112,3 @@ musbar() {
   volbar
   musbar
   fullbar
-  xonts

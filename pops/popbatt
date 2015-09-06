@@ -12,7 +12,7 @@ duration=6
 # sourced from barconf
 
 # put it together 
-baropt='-g '${batbar_g}' -d -F '${battbfg}' -B '${battbbg}' -f '${fnts[0]},${fnts[1]}''
+baropt='-g '${batbar_g}' -d -F '${battbfg}' -B '${battbbg}' -f '${fnt},${fnt1}''
 
 # create it 
 (echo " $@"; sleep ${duration}) | bar ${baropt}

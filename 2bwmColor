@@ -6,28 +6,26 @@
 ## Thanks to Hamsterslayer for the xcolor scraper piece
 ## requires xdotool
 
+. $HOME/bin/colr
+
 # merge in case we forgot
 xrdb merge ~/.Xresources
 
 # get current xcolors
-  xolor(){
-    echo -n "$( xrdb -query | grep "\*$1:" | grep -oE "#[a-zA-Z0-9]{6}" | cut -c 2- )";
-  }
-
-  BG="#$(xolor background)"
-  FG="#$(xolor foreground)"
-  BLK="#$(xolor color0)"
-  BBLK="#$(xolor color8)"
-  RED="#$(xolor color1)"
-  GRN="#$(xolor color2)"
-  YLW="#$(xolor color3)"
-  BLU="#$(xolor color4)"
-  MAG="#$(xolor color5)"
-  CYN="#$(xolor color6)"
-  WHT="#$(xolor color7)"
+  BG="#$bg"
+  FG="#$fg"
+  BLK="#$blk"
+  BBLK="#$bblk"
+  RED="#$red"
+  GRN="#$grn"
+  YLW="#$ylw"
+  BLU="#$blu"
+  MAG="#$mag"
+  CYN="#$cyn"
+  WHT="#$wht"
 
 # wm border color options
-  foc=$WHT
+  foc=$YLW
   unfoc=$BLK
   fixc=$RED
   unkil=$CYN
@@ -62,9 +60,10 @@ xrdb merge ~/.Xresources
 
 # change the background
 # hsetroot -solid "$BBLK" &
+# hsetroot -solid "$(xrdb -query | grep  "*color8" | awk '{print $2}')" -tile /data/walls/patternweb.png &
 
 # spawn a new term
-# urxvt &
+  urxvt &
 
 # update bar colors
   pkill bar && infostat &
