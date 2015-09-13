@@ -3,6 +3,7 @@
 ## update gtk color from xcolor
 ## requires $HOME/tmp directory
 ## requires an xcolor scraper from xrdb; or use colr
+## assumes using $HOME/.themes 
 ## dkeg 2015
 
 . $HOME/bin/colr
@@ -10,7 +11,7 @@
 # merge in case we forgot
 xrdb merge ~/.Xresources
 
-# get colors
+# colors
 BG="$bg"
 FG="$fg"
 BLK="$blk"
@@ -23,7 +24,7 @@ MAG="$mag"
 CYN="$cyn"
 WHT="$wht"
 
-# gtkrc attributes
+# gtkrc attributes; assign colors as you please
 base_color=$WHT
 nbg_color=$WHT
 ntooltip_bg_color=$WHT
@@ -42,9 +43,13 @@ npanel_bg_color=$BG
 npanel_fg_color=$WHT
 nlink_color=$BLU
 
-# set path
+# set paths; parse .gtkrc-2.0 file for current theme
+# also could use base theme provided as set theme
+# as that is what I tested against
 dir=$HOME/.themes
-file=$dir/base/gtk-2.0/gtkrc
+theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print'})
+echo $file
+file=$dir/$theme/gtk-2.0/gtkrc
 tmp=$HOME/tmp/coltemp
 
 # take colors and place into an array
