@@ -8,6 +8,7 @@ Find me on linuxbbq
 - infostat - status bar using lemonbar
 - 2bwmColor - update 2bwm border color based on current xcolors. Change border colors, reload with xdotool
 - colr - xrdb color and font scraper
+- gtkColor - update a base gtk-2 theme with colors from current xcolors. 
 - pops - variety of popup notification using bar
   * barconf - central command for all popup notification geometry's and color
   * battbar - battery notifications when below [n] level
