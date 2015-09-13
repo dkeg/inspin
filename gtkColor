@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ## update gtk color from xcolor
+## requires $HOME/tmp directory
+## requires an xcolor scraper from xrdb; or use colr
 ## dkeg 2015
 
 . $HOME/bin/colr
