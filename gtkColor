@@ -48,8 +48,6 @@ nlink_color=$BLU
 # as that is what I tested against
 dir=$HOME/.themes
 theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print'})
-# test
-#echo $file
 file=$dir/$theme/gtk-2.0/gtkrc
 tmp=$HOME/tmp/coltemp
 
