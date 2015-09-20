@@ -52,9 +52,6 @@ npanel_bg_color=$BG
 npanel_fg_color=$WHT
 nlink_color=$BLU
 
-# what colors are being used
-palette=$(awk 'NR==2{gsub(/</," ");gsub(/>/," ");print $2}' $HOME/.Xresources | cut -d '/' -f5)
-
 # theme directory 
 themedir=$HOME/.themes
 
@@ -99,4 +96,3 @@ sed -i "s/${arr[0]}/"$base_color"/;
 rm $tmpfile
 
 echo ' ... gtk colors changed'
-echo -e ' ... color palette used is '$echored$palette
