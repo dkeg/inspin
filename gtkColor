@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ## update gtk color from xcolor
-## requires $HOME/tmp directory
+## requires $HOME/.themes directory
+## creates $HOME/tmp directory if doesn't exist
 ## requires an xcolor scraper from xrdb; or use colr
-## assumes using $HOME/.themes 
 ## dkeg 2015
 
 . $HOME/bin/colr
@@ -11,7 +11,16 @@
 # merge in case we forgot
 xrdb merge ~/.Xresources
 
-# colors
+# create the directory if it doesn't exist 
+dir=$HOME/tmp
+if [[ ! -d "{$dir}" ]]; then
+  mkdir -p ${dir}
+fi
+
+# echo colors
+echored="\e[31m"
+
+# set up the colors from xrdb
 BG="$bg"
 FG="$fg"
 BLK="$blk"
@@ -24,7 +33,7 @@ MAG="$mag"
 CYN="$cyn"
 WHT="$wht"
 
-# gtkrc attributes; assign colors as you please
+# gtkrc attributes; assign colors 
 base_color=$WHT
 nbg_color=$WHT
 ntooltip_bg_color=$WHT
@@ -43,20 +52,25 @@ npanel_bg_color=$BG
 npanel_fg_color=$WHT
 nlink_color=$BLU
 
-# set paths; parse .gtkrc-2.0 file for current theme
-# also could use base theme provided as set theme
-# as that is what I tested against
-dir=$HOME/.themes
+# what colors are being used
+palette=$(awk 'NR==2{gsub(/</," ");gsub(/>/," ");print $2}' $HOME/.Xresources | cut -d '/' -f5)
+
+# theme directory 
+themedir=$HOME/.themes
+
+# grab currently selected theme
 theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print'})
-file=$dir/$theme/gtk-2.0/gtkrc
-tmp=$HOME/tmp/coltemp
+
+# grab current theme color colors
+file=$themedir/$theme/gtk-2.0/gtkrc
+tmpfile=$dir/coltemp
 
 # take colors and place into an array
 for i in {1..17}
 do
   gtkcol=$(cat $file|grep "_color:"|cut -d '\' -f$i|cut -d '#' -f2)
-  echo $gtkcol >> $tmp
-  arr=($(< $tmp))
+  echo $gtkcol >> $tmpfile
+  arr=($(< $tmpfile))
 done
 
 # test
@@ -82,4 +96,7 @@ sed -i "s/${arr[0]}/"$base_color"/;
         s/${arr[16]}/"$nlink_color'"'"/" $file
 
 # remove temp color file
-rm $tmp
+rm $tmpfile
+
+echo ' ... gtk colors changed'
+echo -e ' ... color palette used is '$echored$palette
