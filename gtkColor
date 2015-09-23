@@ -8,8 +8,8 @@
 
 . $HOME/bin/colr
 
-# merge in case we forgot
-xrdb merge ~/.Xresources
+# load in case we forgot
+xrdb load ~/.Xresources
 
 # create the directory if it doesn't exist 
 dir=$HOME/tmp
@@ -18,7 +18,13 @@ if [[ ! -d "{$dir}" ]]; then
 fi
 
 # echo colors
-echored="\e[31m"
+er="\e[31m"
+eg="\e[32m"
+ey="\e[33m"
+eb="\e[34m"
+em="\e[35m"
+ec="\e[36m"
+rst="\e[0m"
 
 # set up the colors from xrdb
 BG="$bg"
@@ -95,4 +101,4 @@ sed -i "s/${arr[0]}/"$base_color"/;
 # remove temp color file
 rm $tmpfile
 
-echo ' ... gtk colors changed'
+echo -e ' ... gtk '$er'c'$eg'o'$ey'l'$eb'o'$em'r'$ec's'$rst 'changed'$rst 
