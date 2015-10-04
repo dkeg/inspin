@@ -104,7 +104,7 @@ status() {
 	vol() {
         vol=$(amixer get Master|awk 'NR==5 {print $4}'|cut -d '%' -f1 | cut -d '[' -f2) #sed -e 's/[//g') 
         mut=$(amixer get Master | awk 'NR==5 {print $6}')
-        head=$(cat /proc/asound/card0/codec#0 | awk 'NR==143 {print $2}')
+        head=$(cat /proc/asound/card0/codec#0 | awk 'NR==141 {print $2}')
           # check if muted 
           if [ $mut == "[off]" ] ;then
               echo "%{F$MAG}$glymute$SEP"M"$SEP"
