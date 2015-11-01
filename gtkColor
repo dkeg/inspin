@@ -62,7 +62,7 @@ nlink_color=$BLU
 themedir=$HOME/.themes
 
 # grab currently selected theme
-theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print'})
+theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print}')
 
 # grab current theme color colors
 file=$themedir/$theme/gtk-2.0/gtkrc
