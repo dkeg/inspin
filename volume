@@ -1,8 +1,8 @@
-#!/bin/bash
-# z3bra - (c) wtfpl 2014
-# Manage ALSA Master channel
-# riced by dkeg 2015 
-# added output for mute,speaker,headphone
+#!/bin/sh
+# original by z3bra
+# modified by dkeg 
+# 2015 
+# additional output for mute,speaker,headphone
 
 test "$1" = "-h" && echo "usage `basename $0` [+|-|!]" && exit 0
 

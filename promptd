@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 ## promptd
 ## battery status driven prompt 
 ## dkeg 2015
-## in your .bashrc 
 ## PS1="\[\$(/path/promptd)\]$ \[\e[0m\]"
 
 # colors (my choices, change as desire)
@@ -14,7 +13,6 @@
 
 # battery info
   BATT=/sys/class/power_supply/BAT0
-  #test -e $BATT || PS1='%'
   CAPACITY=$(cat $BATT/capacity)
   STATE=$(cat $BATT/status)
 

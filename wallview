@@ -1,10 +1,10 @@
-#! /bin/bash
-
-## wallview
+#! /bin/sh
+## thumbnail view of your current wall
+## dependant on feh
 ## dkeg 2015
 
-## A cool view of your current wall
-## dependant on feh
+## using different file to store wall
+. $HOME/.bg
 
 # set your geometry as desired
 # adjust $display as needed based; this is based on my setup
@@ -14,10 +14,9 @@
 # set the variables
 geom='-g 250x175+550+293'
 params="-R .01 --zoom fill"
-display=$(cat ~/.xinitrc|grep hsetroot|cut -d ' ' -f3|awk '{sub(/&/,"");print}')
-
-# test
-# echo $display
+#display=$(cat ~/.xinitrc|grep hsetroot|cut -d ' ' -f3|awk '{sub(/&/,"");print}')
+#echo $display
 
 # show the preview
-feh $geom $params $display
+feh $geom $params $wall
+#feh $geom $params $display

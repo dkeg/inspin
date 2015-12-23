@@ -1,12 +1,12 @@
-#! /bin/bash
+#! /bin/sh
 
 ## dkeg 2015
+## fun script to scrot and save with options
 ## join scrot and imgur to auto upload
 
 ## dependencies are
   # bar for popups OR use dunst and change notify accordingly
   # imgur upload script (https://code.google.com/p/imgur-cli/)
-  # hit 'q' to exit the scrot preview and continue
 
   usage () {
     echo "usage $(basename $0) [name.png |name.jpg]"
@@ -16,20 +16,20 @@
 ## globals
   scrotit='scrot -d 2'
   sendit="imgur upload $1 -t $1"
-  notify="popbatt %{c}"
+  notify="popper"
   success="echo Success! $1 was uploaded"
 
   test -n "$1" || usage
 
 ## clear the screen to look nice
-  function clr() {
+  clr() {
     echo clear
   }
-  function dir() {
+  dir() {
     pwd
   }
-  function saveit() {
-        echo -e "Specify a location to save or Enter to skip."
+  saveit() {
+        echo "Specify a location to save or Enter to skip."
         read location
           if [ -z  $location ] ;then
             echo "saved to $(dir)"
@@ -44,33 +44,33 @@
           fi
   }
 ## scot it up!
-    info
+    about 
     $scrotit $1 & $notify ' sup' $1
     $(clr)
-      echo -e "Upload to Imgur?
+      echo "Upload to Imgur?
       a. Upload and Save
       b. Upload; don't Save
       c. Save only
       d. Delete and Quit"
     read action
-      if [ $action == "a" ] ;then
+      if [ $action = "a" ] ;then
           saveit $1
           cd $location
           $sendit && cd $HOME
           echo ".... $1 was uploaded."
           $(clr) && $success
           $notify "  $1 uploaded"
-      elif [ $action == "b" ] ;then
+      elif [ $action = "b" ] ;then
           $sendit
           rm $1
           $(clr) && echo  ".... $1 was deleted."
           echo ".... $1 was uploaded."
           $(clr) && $success
           $notify "  $1 uploaded"
-      elif [ $action == "c" ] ;then
+      elif [ $action = "c" ] ;then
           saveit $1
           $notify "  $1 was saved"
-      elif [ $action == "d" ] ;then
+      elif [ $action = "d" ] ;then
           rm $1
           $(clr) && echo "... $1 deleted. Bye!"
           exit 0

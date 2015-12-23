@@ -56,13 +56,3 @@ xrdb merge ~/.Xresources
 
 # reload
   xdotool key "super+ctrl+r"
-
-# change the background
-# hsetroot -solid "$BBLK" &
-# hsetroot -solid "$(xrdb -query | grep  "*color8" | awk '{print $2}')" -tile /data/walls/patternweb.png &
-
-# spawn a new term
-  urxvt &
-
-# update bar colors
-  pkill bar && infostat &
