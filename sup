@@ -44,7 +44,6 @@
           fi
   }
 ## scot it up!
-    about 
     $scrotit $1 & $notify ' sup' $1
     $(clr)
       echo "Upload to Imgur?
