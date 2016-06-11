@@ -1,52 +1,52 @@
 #!/bin/bash
-
-## update gtk color from xcolor
+## Title:    GtkColor
+## Author:   dkeg
+## Modified: 2016
+###
+## update gtk color from xrdb 
+## take colors from xrdb directly, place in array, disperse
 ## requires $HOME/.themes directory
-## creates $HOME/tmp directory if doesn't exist
-## requires an xcolor scraper from xrdb; or use colr
-## dkeg 2015
 
-. $HOME/bin/colr
-
-# load in case we forgot
+# (re)load in case we forgot
 xrdb load ~/.Xresources
 
 # create the directory if it doesn't exist 
 dir=$HOME/tmp
-if [[ ! -d "{$dir}" ]]; then
+if [ ! -d "{$dir}" ]; then
   mkdir -p ${dir}
 fi
 
-# echo colors
-er="\e[31m"
-eg="\e[32m"
-ey="\e[33m"
-eb="\e[34m"
-em="\e[35m"
-ec="\e[36m"
-rst="\e[0m"
+# grab colors from xrdb
+tfile=$dir/curtemp
+for i in {1...17}
+do
+  cur=$(xrdb -query all|egrep '(ground|color)'|cut -d '#' -f2)
+  echo $cur >> $tfile
+  curr=($(< $tfile))
+done
+#echo $tfile #test
 
 # set up the colors from xrdb
-BG="$bg"
-FG="$fg"
-BLK="$blk"
-BBLK="$bblk"
-RED="$red"
-GRN="$grn"
-YLW="$ylw"
-BLU="$blu"
-MAG="$mag"
-CYN="$cyn"
-WHT="$wht"
+BG="${curr[0]}"
+FG="${curr[1]}"
+BLK="${curr[2]}"
+BBLK="${curr[3]}"
+RED="${curr[4]}"
+GRN="${curr[6]}"
+YLW="${curr[8]}"
+BLU="${curr[10]}"
+MAG="${curr[12]}"
+CYN="${curr[14]}"
+WHT="${curr[16]}"
 
 # gtkrc attributes; assign colors 
-base_color=$WHT
-nbg_color=$WHT
-ntooltip_bg_color=$WHT
-nselected_bg_color=$BBLK
-ntext_color=$BG
-nfg_color=$BG
-ntooltip_fg_color=$BG
+base_color=$BG
+nbg_color=$BG
+ntooltip_bg_color=$BG
+nselected_bg_color=$WHT
+ntext_color=$WHT
+nfg_color=$FG
+ntooltip_fg_color=$FG
 nselected_fg_color=$BG
 nmenubar_bg_color=$BG
 nmenubar_fg_color=$WHT
@@ -59,23 +59,24 @@ npanel_fg_color=$WHT
 nlink_color=$BLU
 
 # theme directory 
+# adjust as needed
 themedir=$HOME/.themes
 
 # grab currently selected theme
 theme=$(cat $HOME/.gtkrc-2.0|grep "gtk-theme-name"|awk '{print}'|cut -d '=' -f2|awk '{gsub(/"/,"");print}')
 
-# grab current theme color colors
+# grab current theme colors
 file=$themedir/$theme/gtk-2.0/gtkrc
 tmpfile=$dir/coltemp
 
-# take colors and place into an array
+# take current gtk colors and place into an array;
+# we will replace them with our current colors
 for i in {1..17}
 do
   gtkcol=$(cat $file|grep "_color:"|cut -d '\' -f$i|cut -d '#' -f2)
   echo $gtkcol >> $tmpfile
   arr=($(< $tmpfile))
 done
-
 # test
 #echo ${arr[@]}
 
@@ -100,5 +101,23 @@ sed -i "s/${arr[0]}/"$base_color"/;
 
 # remove temp color file
 rm $tmpfile
+rm $tfile
 
-echo -e ' ... gtk '$er'c'$eg'o'$ey'l'$eb'o'$em'r'$ec's'$rst 'changed'$rst 
+## Exta Candy ##
+
+# what colors are being used
+# adjust to your path/setup
+palette=$(awk 'NR==5{gsub(/</," ");gsub(/>/," ");print $2}' $HOME/.Xresources.d/.colors | cut -d '/' -f5)
+
+# echo colors
+er="\e[31m"
+eg="\e[32m"
+ey="\e[33m"
+eb="\e[34m"
+em="\e[35m"
+ec="\e[36m"
+rst="\e[0m"
+
+# say what?
+say='  ... color palette used is '$er$palette$rst
+echo -e $say 
