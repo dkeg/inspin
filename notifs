@@ -1,0 +1,20 @@
+#! /bin/sh
+## dkeg 2016
+## tell me what's going on
+## start in .xinitrc
+
+dir=$HOME/bin
+
+  battery() {
+    $dir/battnotif
+  }
+  inform() {
+    $dir/ministat
+  }
+  time() {
+    popper ' ' $(date  +'%R'), $(date +' %b %d')
+  }
+
+sleep 40s && battery
+sleep 60s && inform 
+sleep 120s && time 

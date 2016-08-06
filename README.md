@@ -6,9 +6,12 @@ Find me on linuxbbq
 - promptd - battery state/level driven prompt colors
 - wallview - takes current wall(s) - displays as thumbnail 
 - poptat - on demand status bar using lemonbar
+- ministat - minified popstat (mem,vol,batt,temp,wifi)
 - 2bwmColor - update 2bwm border color based on current xcolors. Change border colors, reload with xdotool
 - colr - xrdb color and font scraper
 - gtkColor - update a base gtk-2 theme from xrdb 
+- colrup - run from .xinitrc. Sets wall, gtk colors according to color file
+- notifs - spawn notifications from .xinitrc - ministat,time,batt (when discharging)
 - pops - variety of popup notification using bar
   * popconf - central command for all popup notification geometry's and color
   * battnotif - battery notifications when below [n] level
