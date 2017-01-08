@@ -23,7 +23,7 @@ Find me on linuxbbq
   * battnotif - battery notifications when below [n] level
   * popper - popup notification for events (cmus, irc, battery, ...)
 
-###### [infobar_long](infobar_long) 
+###### infobar - long geometry option 
 ![infobar_long](infobar_long.png)
-###### [infobar_short](infobar_short) 
+###### infobar - short geometry option  
 ![infobar_short](infobar_short.png)
