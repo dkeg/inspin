@@ -37,7 +37,7 @@ xrdb merge ~/.Xresources
   file=$HOME/git/2bwm/config.h
 
 # take the colors from the config.h and place into an array  
-  wmcol=$(cat $file|grep "*colors"|awk '{print $6}'|cut -d '}' -f1|awk '{gsub(/"/," ");print $2,$4,$6,$8,$10,$12,$14}')
+  wmcol=$(cat $file|awk '/\*colors/ {print $6}'|cut -d '}' -f1|awk '{gsub(/"/," ");print $2,$4,$6,$8,$10,$12,$14}') 
   arr=($wmcol)
 
 # action; set the new colors

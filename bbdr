@@ -6,13 +6,18 @@
 
 . $HOME/bin/colr
 ## colors 
-R=$red
+R=$bred
 M=$mag
 Y=$ylw
 G=$grn
+BG=$bgrn
 C=$cyn
 N=$bblk
 W=$wht
+BY=$bylw
+F=$fg
+BK=$blk
+BBK=$bblk
 ## get the information
 BATT=/sys/class/power_supply/BAT0
 CAPACITY=$(cat $BATT/capacity)
@@ -21,14 +26,11 @@ STATE=$(cat $BATT/status)
 ## filter and colorize 
  if [ ${STATE} = "Discharging" ] ; then
    case ${CAPACITY} in
-   [0-9])  bb="$R" ;;
- #  [1-2]*) bb="$Y" ;;
- #  [2-9]*) bb="$W" ;;
-   [1-2]*) bb="$M" ;;
-   [3-6]*) bb="$Y" ;;
-   [7-9]*) bb="$G" ;;
-   [100])  bb="$G" ;;
+      [0-9])   bb="$R" ;;
+      [0-1]*)  bb="$Y" ;;
+      [2-9]*)  bb="$BBK" ;;
+      [100])   bb="$G" ;;
    esac
  else 
-  bb="$C"
+   bb="$BBK"
  fi

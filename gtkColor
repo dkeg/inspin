@@ -107,7 +107,7 @@ rm $tfile
 
 # what colors are being used
 # adjust to your path/setup
-palette=$(awk 'NR==5{gsub(/</," ");gsub(/>/," ");print $2}' $HOME/.Xresources.d/.colors | cut -d '/' -f5)
+palette=$(awk 'NR==5{gsub(/</," ");gsub(/>/," ");print $2}' $HOME/.Xresources.d/.colors | cut -d '/' -f6)
 
 # echo colors
 er="\e[31m"
