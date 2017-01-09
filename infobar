@@ -209,7 +209,7 @@ function status {
     }
 
     groups() {
-       if [[ $mywm = "xwait" ]]; then
+       if [[ $mywm = "xwait" ]] || [[ $mywm = "windowchef" ]]; then
           line=""
       else
           cur=$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}')
