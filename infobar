@@ -226,7 +226,8 @@ function status {
         if [[ $mywm = "xwait" ]]; then
           title=""
       else
-          name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) WM_NAME | awk '{gsub(/"/," ");$1=$2="";print}')
+          ## print out the windownamee, remove the quotes, truncate at xxx characters¬
+          name=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) WM_NAME | awk '{$1=$2="";print}' | tr -d '"' | cut -c 1-80)
           if [[ ! $name ]];then
               title=$GEN"window: null "
           else
